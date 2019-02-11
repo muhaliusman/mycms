@@ -3,9 +3,13 @@
 use Illuminate\Database\Seeder;
 
 use Illuminate\Database\Eloquent\Model;
+use Cerberusworks\Cwcms\Traits\SeedableTrait;
 
 class CwmsDatabaseSeeder extends Seeder
 {
+    use SeedableTrait;
+
+    protected $seedersPath;
     /**
      * Run the database seeds.
 	 *
@@ -16,8 +20,8 @@ class CwmsDatabaseSeeder extends Seeder
     public function run()
     {
 		// Seeder sequece is order by constraint
-		Model::unguard();
-        $this->call(BaseTableSeeder::class); // Base or global option
-        $this->call(AdminTableSeeder::class); // Cms admin users & permission
+        $this->seedersPath = database_path('seeds').'/';
+        $this->seed('BaseTableSeeder');
+        $this->seed('AdminTableSeeder');
     }
 }

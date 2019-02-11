@@ -25,7 +25,7 @@ class BaseTableSeeder extends Seeder
 
 		// yes, usage frontend & backend
 		foreach( $required as $name => $value ){
-			Option::create([
+			DB::table('options')->insert([
 				'name' => $name,
 				'value' => $value,
 				'autoload' => 'yes'

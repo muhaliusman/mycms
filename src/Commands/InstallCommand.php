@@ -7,9 +7,13 @@ use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Process\Process;
 use Cerberusworks\Cwcms\CwcmsServiceProvider;
+use Cerberusworks\Cwcms\Traits\SeedableTrait;
 
 class InstallCommand extends Command
 {
+    use SeedableTrait;
+
+    protected $seedersPath = __DIR__.'/../../database/seeds/';
 
     /**
      * The console command name.
@@ -38,6 +42,20 @@ class InstallCommand extends Command
     }
 
     /**
+     * Get the composer command for the environment.
+     *
+     * @return string
+     */
+    protected function findComposer()
+    {
+        if (file_exists(getcwd().'/composer.phar')) {
+            return '"'.PHP_BINARY.'" '.getcwd().'/composer.phar';
+        }
+
+        return 'composer';
+    }
+
+    /**
      * Execute the console command.
      *
      * @param \Illuminate\Filesystem\Filesystem $filesystem
@@ -52,7 +70,7 @@ class InstallCommand extends Command
 
         $this->call('vendor:publish', ['--provider' => CwcmsServiceProvider::class, '--tag' => $tags]);
 
-        $this->info('Migrating dummy tables');
+        $this->info('Migrating tables');
         $this->call('migrate');
 
         if ($this->option('with-dummy')) {
@@ -60,10 +78,14 @@ class InstallCommand extends Command
 
             $this->call('vendor:publish', ['--provider' => CwcmsServiceProvider::class, '--tag' => $tags]);
 
+            $composer = $this->findComposer();
+            $this->info('Dump autoload');
+            $process = new Process($composer.' dump-autoload');
+
             $this->info('Seeding dummy data');
             $this->seed('CwmsDatabaseSeeder');
         }
 
-        $this->info($successMessage);
+        $this->info('Cwcms successfully installed');
     }
 }

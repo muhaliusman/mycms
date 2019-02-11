@@ -11,7 +11,7 @@ class AdminTableSeeder extends Seeder
 
 	public function __construct()
 	{
-		$this->roles = config('site.admin_roles');
+		$this->roles = config('cwcms.admin_roles');
 	}
 
 
@@ -25,13 +25,15 @@ class AdminTableSeeder extends Seeder
 		// register cms admin
 		$faker = Faker\Factory::create();
 		foreach( $this->roles as $role => $title ){
-			Role::create([
+			$idRole = DB::table('roles')->insertGetId([
 				'slug' => $role,
 				'name' => $title,
-				'description' => 'This user cms role'
+				'description' => 'This user cms role',
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s')
 			]);
 
-			User::create([
+			$idUser = DB::table('users')->insertGetId([
 				'user_login' => $role,
 				'password' => bcrypt($role),
 				'first_name' => $faker->firstName,
@@ -40,7 +42,17 @@ class AdminTableSeeder extends Seeder
 				'email' => $faker->companyEmail(),
 				'api_token' => str_random(60),
 				'active' => 1,
-			])->assignRole($role);
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s')
+			]);
+
+			DB::table('role_user')->insert([
+				'role_id' => $idRole,
+				'user_id' => $idUser,
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s')
+			]);
+
 		}
 
 		$this->permissions();
@@ -54,197 +66,88 @@ class AdminTableSeeder extends Seeder
 
 		// Section Admin
 		// ============================================================
-		$Admin = Permission::create([
+		$Admin = DB::table('permissions')->insertGetId([
 			'name' => 'user',
-			'slug' => [
+			'slug' => json_encode([
 				'view'	 => true,
 				'create' => true,
 				'update' => true,
 				'delete' => true,
-			]
+			]),
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
 		]);
 
 
 		// Modul Menu
 		// ============================================================
-		$Menu = Permission::create([
+		$Menu = DB::table('permissions')->insertGetId([
 			'name' => 'menu',
-			'slug' => [
+			'slug' => json_encode([
 				'form'	  => true,
 				'additem' => true,
 				'store'	  => true,
 				'delete'  => true,
-			]
+			]),
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
 		]);
 
 
 		// Section Options
 		// ============================================================
-		$Option = Permission::create([
+		$Option = DB::table('permissions')->insertGetId([
 			'name' => 'settings',
-			'slug' => [
+			'slug' => json_encode([
 				'update' => true,
-			]
+			]),
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
 		]);
 
-		$Footer = Permission::create([
+		$Footer = DB::table('permissions')->insertGetId([
 			'name' => 'footer',
-			'slug' => [
+			'slug' => json_encode([
 				'update' => true,
-			]
+			]),
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
 		]);
 
-/* 
-		// Modul Post
-		// ============================================================
-		// Post
-		$Post = Permission::create([
-			'name' => 'post',
-			'slug' => [
-				'create' => true,
-				'view'	 => true,
-				'update' => true,
-				'delete' => true,
-			]
+		$ActivityLog = DB::table('permissions')->insertGetId([
+			'name' => 'activity-log',
+			'slug' => json_encode([
+				'delete'  => true,
+			]),
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
 		]);
-
-		// Modul Portfolio
-		// ============================================================
-		// Post
-		$Portfolio = Permission::create([
-			'name' => 'portfolio',
-			'slug' => [
-				'create' => true,
-				'view'	 => true,
-				'update' => true,
-				'delete' => true,
-			]
-		]);
-
-		// Modul Message
-		// ============================================================
-		$Message = Permission::create([
-			'name' => 'message',
-			'slug' => [
-				'view'	 => true,
-				'delete' => true,
-			]
-		]);
-
-		// Page
-		$Page = Permission::create([
-			'name' => 'page',
-			'slug' => [
-				'view'	 => true,
-				'create' => true,
-				'update' => true,
-				'delete' => true,
-			]
-		]);
-
-		// Clients
-		$Client = Permission::create([
-			'name' => 'client',
-			'slug' => [
-				'view'	 => true,
-				'create' => true,
-				'update' => true,
-				'delete' => true,
-			]
-		]);
-
-		// Post Category
-		$PostCategory = Permission::create([
-			'name' => 'post-category',
-			'slug' => [
-				'view'	 => true,
-				'create' => true,
-				'update' => true,
-				'delete' => true,
-			]
-		]);
-
-		// Post Category
-		$PortfolioCategory = Permission::create([
-			'name' => 'portfolio-category',
-			'slug' => [
-				'view'	 => true,
-				'create' => true,
-				'update' => true,
-				'delete' => true,
-			]
-		]);
-
-		// Post Category
-		$OfficeType = Permission::create([
-			'name' => 'office-type',
-			'slug' => [
-				'view'	 => true,
-				'create' => true,
-				'update' => true,
-				'delete' => true,
-			]
-		]);
-
-		// Article
-		$Blog = Permission::create([
-			'name' => 'blog',
-			'slug' => [
-				'view'	 => true,
-				'create' => true,
-				'update' => true,
-				'delete' => true,
-			]
-		]);
-
-		// Article
-		$Slider = Permission::create([
-			'name' => 'slider',
-			'slug' => [
-				'view'	 => true,
-				'create' => true,
-				'update' => true,
-				'delete' => true,
-			]
-		]);
-		
-		
-		// Home Page
-		// ============================================================
-		$Home = Permission::create([
-			'name' => 'home',
-			'slug' => [
-				'update' => true,
-			]
-		]); */
 
 		// List Permission name => id
 		// ============================================================
 		$permissions = [
-			'user' => $Admin->id,
-			'menu' => $Menu->id,
-			'settings' => $Option->id,
-			'footer' => $Footer->id,
-			/* 'post' => $Post->id,
-			'portfolio' => $Portfolio->id,
-			'page' => $Page->id,
-			'post-category' => $PostCategory->id,
-			'blog' => $Blog->id,
-			'slider' => $Slider->id,
-			'message' => $Message->id,
-			'client' => $Client->id,
-			'portfolio-category' => $PortfolioCategory->id,
-			'office-type' => $OfficeType->id,
-			'home' => $Home->id */
+			'user' => $Admin,
+			'menu' => $Menu,
+			'settings' => $Option,
+			'footer' => $Footer,
+			'activity-log' => $ActivityLog
 		];
 
 
 		// Attach Permission to Role
 		// ============================================================
-		$Roles = Role::whereIn('slug', array_keys($this->roles))->get();
+		$Roles = DB::table('roles')->whereIn('slug', array_keys($this->roles))->get();
 		foreach( $Roles as $Role ){
-			$perm = $Role->slug == 'admin'? array_except($permissions, ['user']): $permissions;
-			$Role->assignPermission(array_values($perm));
+			$perm = $Role->slug == 'admin'? array_except($permissions, ['user', 'activity-log']): $permissions;
+
+			foreach ($perm as $key => $value) {
+				DB::table('permission_role')->insert([
+					'permission_id' => $value,
+					'role_id' => $Role->id,
+					'created_at' => date('Y-m-d H:i:s'),
+					'updated_at' => date('Y-m-d H:i:s')
+				]);
+			}
 		}
 	}
 }
