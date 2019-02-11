@@ -1,0 +1,46 @@
+{
+    "name": "cerberusworks/cwcms",
+    "description": ":description",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cerberusworks Dev Team",
+            "email": "info@cerberusworks.com",
+            "homepage": "https://cerberusworks.com"
+        }
+    ],
+    "homepage": "https://github.com/cerberusworks/cwcms",
+    "keywords": ["Laravel", "Cwcms"],
+    "require": {
+        "illuminate/support": "~5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cerberusworks\\Cwcms\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cerberusworks\\Cwcms\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Cerberusworks\\Cwcms\\CwcmsServiceProvider",
+                "UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider",
+                "Intervention\\Image\\ImageServiceProvider"
+            ],
+            "aliases": {
+                "Cwcms": "Cerberusworks\\Cwcms\\Facades\\Cwcms",
+                "Image": "Intervention\\Image\\Facades\\Image"
+            }
+        }
+    }
+}
