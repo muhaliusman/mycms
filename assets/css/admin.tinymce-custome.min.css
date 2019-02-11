@@ -1,0 +1,131 @@
+/************************
+ * Bootrap
+ *************************/
+.carousel-inner > .item > a > img,
+.carousel-inner > .item > img,
+.img-responsive, 
+.thumbnail a > img, 
+.thumbnail > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+/************************
+ * Styled global
+ *************************/
+ul.list-inline {
+    margin: 0;
+    padding: 0;
+	list-style: none;
+}
+
+/************************
+ * Styled Theme
+ *************************/
+.single-sidebar ul {
+    margin: 0;
+    padding: 0;
+	list-style: none;
+}
+.single-sidebar .sidebar-links ul li a {
+    display: block;
+    color: #999;
+	text-decoration: none;
+	border-bottom: 1px solid #fff;
+	border-bottom-color: rgb(255, 255, 255);
+    background: #F4F4F4;
+    padding: 12px 20px;
+    -webkit-transition: color .4s ease,background .4s ease,border-color .4s ease;
+    transition: color .4s ease,background .4s ease,border-color .4s ease;
+}
+.single-sidebar .sidebar-links ul li.active a, 
+.single-sidebar .sidebar-links ul li:hover a {
+    color: #fff;
+    background: #c73130;
+    border-color: #c73130;
+}
+.tab-content{
+	padding: 15px;
+    border: 1px solid #BCBCBC;
+    background: #F4F4F4;
+}
+.tab-content .tab-pane{
+	padding: 15px;
+	margin-bottom: 15px;
+    border: 1px solid #BCBCBC;
+}
+.tab-content .tab-pane.active{
+    background: #ffffff;
+}
+
+
+/*** Quote Text */
+.qoute-text {
+    font-size: 20px;
+	padding-left: 35px;
+    font-style: italic;
+}
+.qoute-text p {
+    display: inline-block;
+    position: relative;
+}
+.qoute-text p::after, 
+.qoute-text p::before {
+    font-family: Alegreya;
+    font-size: 28px;
+    position: absolute;
+}
+.qoute-text p::after {
+    bottom: -5px;
+    content: "\201D";
+    margin-left: 5px;
+}
+.qoute-text p::before {
+    content: "\201C";
+    left: -30px;
+    top: -5px;
+}
+
+/*** Title Prmary  */
+.sec-title.semi h2 {
+    margin-bottom: 0;
+}
+
+.sec-title span.decor-line {
+    margin-top: 10px;
+    display: inline-block;
+}
+.sec-title span.decor-line::after, 
+.sec-title span.decor-line::before {
+    content: '';
+    width: 40px;
+    height: 2px;
+    background: #c73130;
+    display: inline-block;
+    vertical-align: middle;
+}
+.sec-title span.decor-line .decor-line-inner {
+    width: 26px;
+    height: 16px;
+    background-image: url(../img/css/title-decor.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.popup-target-hidden{
+	opacity: 0.4;
+    border: 1px solid #BCBCBC;
+}
+
+/*** Image Box */
+.single-team-member{
+	margin-bottom: 40px;
+}
+
+.single-team-member .img-box {
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+}

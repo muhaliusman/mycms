@@ -1,0 +1,47 @@
+
+		.box-body table > thead > tr > th:last-child{
+			width: 30px;
+		}
+		.tab-pane{
+			padding-top: 10px;
+		}
+		.table a.hover-underline{
+			font-weight: 700;
+		}
+		td.action-btn{
+			width: 20px;
+			text-align: center;
+		}
+		.action-btn .btn-group > .btn{
+			border-color: #ddd;
+			border-radius: 2px;
+			color: #b5b5b5;
+			background-color: #ecf0f5;
+		}
+		.action-btn:hover > .btn-group:not(.open) > .dropdown-menu{
+			display: block;
+		}
+		.action-btn .dropdown-menu{
+			left: auto;
+			right: 0;
+			border-radius: 2px;
+			background-color: #ecf0f5;
+			min-width: 77px;
+			font-size: 12px;
+			padding: 2px 0;
+		}
+		tbody tr:last-child .action-btn .dropdown-menu{
+			top: auto;
+			bottom: 100%;
+			margin-bottom: 2px;
+		}
+		.action-btn .dropdown-menu > .divider{
+			margin: 2px 0;
+			background-color: #ecebeb;
+		}
+		.action-btn .dropdown-menu > li > a{
+			padding: 3px 5px 3px 10px;
+		}
+		.action-btn .dropdown-menu > li > a .fa{
+			font-size: 14px;
+		}
