@@ -33,13 +33,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Cerberusworks\\Cwcms\\CwcmsServiceProvider",
-                "UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider",
-                "Intervention\\Image\\ImageServiceProvider"
+                "Cerberusworks\\Cwcms\\CwcmsServiceProvider"
             ],
             "aliases": {
-                "Cwcms": "Cerberusworks\\Cwcms\\Facades\\Cwcms",
-                "Image": "Intervention\\Image\\Facades\\Image"
+                "Cwcms": "Cerberusworks\\Cwcms\\Facades\\Cwcms"
             }
         }
     }
