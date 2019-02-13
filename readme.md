@@ -1,31 +1,32 @@
 # Cwcms
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
+## Requirements
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+- Min Laravel 5.4
 
 ## Installation
 
-Via Composer
+Setup your environtment in your .env file.
+
+Then install via Composer
 
 ``` bash
 $ composer require cerberusworks/cwcms
 ```
+
+After finish instalation process, next run install command
+
+``` bash
+$ php artisan cwcms:install --with-dummy
+```
+
+Finish
 
 ## Usage
 
 ## Change log
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
-
-## Testing
-
-``` bash
-$ composer test
-```
 
 ## Contributing
 
